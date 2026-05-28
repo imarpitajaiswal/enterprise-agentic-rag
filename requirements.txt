@@ -2,9 +2,9 @@ fastapi==0.110.0
 uvicorn[standard]==0.29.0
 langchain==0.1.13
 langchain-groq
-langchain-huggingface
 langgraph==0.0.30
 pinecone-client==3.2.2
 pydantic==2.6.4
 python-dotenv==1.0.1
 websockets==12.0
+requests

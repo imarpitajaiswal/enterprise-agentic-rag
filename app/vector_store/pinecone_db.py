@@ -1,14 +1,32 @@
-from langchain_huggingface import HuggingFaceEndpointEmbeddings
+import requests
+from typing import List
+from langchain_core.embeddings import Embeddings
 from langchain.vectorstores import Pinecone
 from pinecone import Pinecone as PineconeClient
 from app.config import settings
 
 pc = PineconeClient(api_key=settings.PINECONE_API_KEY)
 
-embeddings = HuggingFaceEndpointEmbeddings(
-    model="sentence-transformers/all-MiniLM-L6-v2",
-    task="feature-extraction",
-    huggingfacehub_api_token=settings.HF_TOKEN
+class LightweightHFEmbeddings(Embeddings):
+    def __init__(self, model_id: str, hf_token: str):
+        self.api_url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id}"
+        self.headers = {"Authorization": f"Bearer {hf_token}"}
+
+    def _query(self, payload):
+        response = requests.post(self.api_url, headers=self.headers, json=payload)
+        response.raise_for_status()
+        return response.json()
+
+    def embed_documents(self, texts: List[str]) -> List[List[float]]:
+        return self._query({"inputs": texts})
+
+    def embed_query(self, text: str) -> List[float]:
+        return self._query({"inputs": text})
+
+# ☁️ Cloud API Embeddings (Zero heavy dependencies!)
+embeddings = LightweightHFEmbeddings(
+    model_id="sentence-transformers/all-MiniLM-L6-v2",
+    hf_token=settings.HF_TOKEN
 )
 
 def get_vector_store():
