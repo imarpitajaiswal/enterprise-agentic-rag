@@ -12,7 +12,7 @@ class AgentState(TypedDict):
 
 llm = ChatGroq(
     temperature=0, 
-    model_name="llama3-8b-8192", 
+    model_name="llama-3.1-8b-instant",
     groq_api_key=settings.GROQ_API_KEY
 )
 
