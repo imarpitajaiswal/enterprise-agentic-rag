@@ -1,6 +1,6 @@
 from typing import TypedDict
 from langgraph.graph import StateGraph, END
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langchain.schema import HumanMessage, SystemMessage
 from app.vector_store.pinecone_db import retrieve_context
 from app.config import settings
@@ -10,7 +10,11 @@ class AgentState(TypedDict):
     context: str
     response: str
 
-llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo", openai_api_key=settings.OPENAI_API_KEY)
+llm = ChatGroq(
+    temperature=0, 
+    model_name="llama3-8b-8192", 
+    groq_api_key=settings.GROQ_API_KEY
+)
 
 def retrieve_node(state: AgentState):
     try:
