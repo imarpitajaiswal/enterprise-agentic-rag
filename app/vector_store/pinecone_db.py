@@ -2,7 +2,7 @@ import time
 import requests
 from typing import List
 from langchain_core.embeddings import Embeddings
-from langchain.vectorstores import Pinecone
+from langchain_community.vectorstores import Pinecone
 from pinecone import Pinecone as PineconeClient
 from app.config import settings
 
@@ -16,15 +16,12 @@ class LightweightHFEmbeddings(Embeddings):
     def _query(self, payload, retries=4):
         for i in range(retries):
             response = requests.post(self.api_url, headers=self.headers, json=payload)
-            # Handle cold-start loading times on free tier
             if response.status_code == 503:
                 print(f"⏳ HF Model loading, waiting 10s... (Attempt {i+1}/{retries})")
                 time.sleep(10)
                 continue
-            
             if response.status_code != 200:
                 raise Exception(f"HF API Error {response.status_code}: {response.text}")
-                
             return response.json()
         raise Exception("HF API timeout after multiple retries.")
 
@@ -33,7 +30,6 @@ class LightweightHFEmbeddings(Embeddings):
 
     def embed_query(self, text: str) -> List[float]:
         res = self._query({"inputs": text})
-        # Flatten nested lists if HF returns 2D array
         if isinstance(res, list) and len(res) > 0 and isinstance(res[0], list):
             return res[0]
         return res
@@ -46,7 +42,8 @@ embeddings = LightweightHFEmbeddings(
 
 def get_vector_store():
     index = pc.Index(settings.PINECONE_INDEX_NAME)
-    vector_store = Pinecone(index, embeddings.embed_query, "text")
+    # Passed the embeddings object directly to clear the deprecation warning
+    vector_store = Pinecone(index, embeddings, "text")
     return vector_store
 
 def retrieve_context(query: str, top_k: int = 3):
@@ -55,5 +52,6 @@ def retrieve_context(query: str, top_k: int = 3):
         docs = vector_store.similarity_search(query, k=top_k)
         return "\n".join([doc.page_content for doc in docs])
     except Exception as e:
+        # Exposing the hidden error to Render logs
         print(f"❌ CRITICAL RETRIEVAL ERROR: {e}")
-        raise e  # Pass error up so we can see it
+        raise e
