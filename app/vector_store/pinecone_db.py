@@ -5,7 +5,6 @@ from app.config import settings
 
 pc = PineconeClient(api_key=settings.PINECONE_API_KEY)
 
-# ☁️ Cloud API Embeddings (Uses 0MB local RAM!)
 embeddings = HuggingFaceEndpointEmbeddings(
     model="sentence-transformers/all-MiniLM-L6-v2",
     task="feature-extraction",
