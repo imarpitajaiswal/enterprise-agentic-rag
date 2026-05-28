@@ -1,10 +1,16 @@
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain.vectorstores import Pinecone
 from pinecone import Pinecone as PineconeClient
 from app.config import settings
 
 pc = PineconeClient(api_key=settings.PINECONE_API_KEY)
-embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+
+# ☁️ Cloud API Embeddings (Uses 0MB local RAM!)
+embeddings = HuggingFaceEndpointEmbeddings(
+    model="sentence-transformers/all-MiniLM-L6-v2",
+    task="feature-extraction",
+    huggingfacehub_api_token=settings.HF_TOKEN
+)
 
 def get_vector_store():
     index = pc.Index(settings.PINECONE_INDEX_NAME)
