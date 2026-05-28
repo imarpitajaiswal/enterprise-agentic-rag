@@ -41,7 +41,7 @@
         const sendBtn = document.getElementById('send-btn');
         
         // Connect to the local Docker backend
-        const ws = new WebSocket('ws://localhost:8000/ws/chat');
+        const ws = new WebSocket('wss://enterprise-agentic-rag.onrender.com/ws/chat');
 
         function addMessage(text, sender) {
             const msgDiv = document.createElement('div');
