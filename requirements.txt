@@ -6,3 +6,4 @@ langgraph==0.0.30
 pinecone-client==3.2.2
 pydantic==2.6.4
 python-dotenv==1.0.1
+websockets==12.0

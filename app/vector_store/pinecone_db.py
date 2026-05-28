@@ -3,7 +3,6 @@ from langchain.vectorstores import Pinecone
 from pinecone import Pinecone as PineconeClient
 from app.config import settings
 
-# Initialize Pinecone
 pc = PineconeClient(api_key=settings.PINECONE_API_KEY)
 embeddings = OpenAIEmbeddings(openai_api_key=settings.OPENAI_API_KEY)
 
