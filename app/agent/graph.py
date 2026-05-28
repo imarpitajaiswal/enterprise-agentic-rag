@@ -20,6 +20,7 @@ def retrieve_node(state: AgentState):
     try:
         context = retrieve_context(state["input"])
     except Exception as e:
+        print(f"❌ RETRIEVAL ERROR: {e}") # <-- Add this line!
         context = "Database not initialized yet."
     return {"context": context}
 
