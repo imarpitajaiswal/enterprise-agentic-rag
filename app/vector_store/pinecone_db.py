@@ -34,7 +34,6 @@ class LightweightHFEmbeddings(Embeddings):
             return res[0]
         return res
 
-# Initialize robust embeddings
 embeddings = LightweightHFEmbeddings(
     model_id="sentence-transformers/all-MiniLM-L6-v2",
     hf_token=settings.HF_TOKEN
@@ -42,16 +41,10 @@ embeddings = LightweightHFEmbeddings(
 
 def get_vector_store():
     index = pc.Index(settings.PINECONE_INDEX_NAME)
-    # Passed the embeddings object directly to clear the deprecation warning
     vector_store = Pinecone(index, embeddings, "text")
     return vector_store
 
 def retrieve_context(query: str, top_k: int = 3):
-    try:
-        vector_store = get_vector_store()
-        docs = vector_store.similarity_search(query, k=top_k)
-        return "\n".join([doc.page_content for doc in docs])
-    except Exception as e:
-        # Exposing the hidden error to Render logs
-        print(f"❌ CRITICAL RETRIEVAL ERROR: {e}")
-        raise e
+    vector_store = get_vector_store()
+    docs = vector_store.similarity_search(query, k=top_k)
+    return "\n".join([doc.page_content for doc in docs])
