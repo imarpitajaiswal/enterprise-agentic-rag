@@ -1,24 +1,60 @@
-```markdown
-# 🚀 Enterprise Agentic RAG Platform
+# Enterprise Agentic RAG Platform
 
-## 📖 Overview
-An asynchronous, production-grade conversational AI platform built to handle enterprise document retrieval. Utilizes a multi-agent architecture to route queries, query a vector database, and stream real-time responses.
+## Business Problem
 
-## 🏗️ System Architecture
-*(Architecture diagram placeholder: User -> FastAPI -> LangGraph -> Pinecone & LLM)*
+Large enterprises struggle to retrieve accurate information across thousands of documents distributed across multiple repositories. Traditional keyword search often produces irrelevant results, increasing employee search time and reducing operational efficiency.
 
-## ⚙️ Tech Stack
-* **Backend:** Python 3.10+, FastAPI, Uvicorn, WebSockets
-* **AI/ML:** LangChain, LangGraph, OpenAI models
-* **Data Layer:** Pinecone (Vector DB), Semantic Chunking
-* **DevOps:** Docker, GitHub Actions, AWS EC2
+## Solution
 
-## 🚀 Key Features
-1. **Agentic Routing:** Dynamically routes queries to the correct specialized tool.
-2. **Hybrid Search RAG:** Combines semantic and keyword search for high precision.
-3. **Async Streaming:** Uses WebSockets for real-time token streaming.
+Designed and developed a production-grade Agentic Retrieval-Augmented Generation platform capable of intelligently routing user queries to specialized retrieval tools and generating grounded responses using enterprise knowledge.
 
-## 🛠️ Local Setup (Dockerized)
-1. Clone the repository.
-2. Add your `OPENAI_API_KEY` and `PINECONE_API_KEY` to a local `.env` file.
-3. Run `docker-compose up --build` to start the backend services.
+The platform leverages LangGraph-based agent orchestration, Pinecone vector search, semantic chunking, and OpenAI models to deliver highly relevant answers with low latency.
+
+## Architecture
+
+User Query
+
+↓
+
+FastAPI API Layer
+
+↓
+
+LangGraph Agent Router
+
+↓
+
+Hybrid Retrieval Engine
+
+↓
+
+Pinecone Vector Database
+
+↓
+
+OpenAI Response Generation
+
+↓
+
+Real-Time Streaming Response
+
+## Technical Highlights
+
+* Multi-Agent Query Routing
+* Hybrid Search Retrieval
+* Semantic Chunking
+* Vector Search
+* Async Streaming via WebSockets
+* Dockerized Deployment
+* AWS Infrastructure
+
+## Business Impact
+
+* Improved knowledge retrieval efficiency
+* Reduced search time for enterprise users
+* Increased answer relevance through agent routing
+* Scalable architecture supporting large document repositories
+
+## Technology Stack
+
+Python, FastAPI, LangGraph, LangChain, Pinecone, OpenAI, Docker, AWS
