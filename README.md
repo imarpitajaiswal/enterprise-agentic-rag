@@ -1,293 +1,228 @@
-# Enterprise Agentic RAG Platform
+# 🚀 Enterprise Agentic RAG Platform
 
-> Production-Grade Agentic Retrieval-Augmented Generation System for Enterprise Knowledge Discovery
-> Try it on your own - https://enterprise-agentic-rag.vercel.app
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white"/>
+  <img src="https://img.shields.io/badge/LangGraph-Agentic_AI-blueviolet?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/LangChain-121D33?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/OpenAI-GPT-412991?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Pinecone-Vector_DB-0066FF?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
+  <img src="https://img.shields.io/badge/AWS-Cloud-orange?style=for-the-badge&logo=amazonaws&logoColor=white"/>
+</p>
 
-## Executive Summary
+> **Production-Grade Agentic Retrieval-Augmented Generation (RAG) Platform for Enterprise Knowledge Discovery**
 
-Modern enterprises generate vast amounts of knowledge across PDFs, documentation portals, wikis, internal systems, and business repositories. Traditional keyword-based search often fails to provide accurate, context-aware answers, resulting in lost productivity, duplicated effort, and delayed decision-making.
-
-The Enterprise Agentic RAG Platform addresses this challenge by combining Agentic AI, Retrieval-Augmented Generation (RAG), Vector Search, and Large Language Models to deliver intelligent, grounded, and scalable enterprise knowledge retrieval.
-
-Built using LangGraph, FastAPI, Pinecone, OpenAI, Docker, and AWS, the platform dynamically routes user queries through specialized retrieval workflows before generating contextually accurate responses in real time.
-
----
-
-# Business Problem
-
-Enterprise users spend significant time searching for information spread across multiple systems.
-
-Common challenges include:
-
-* Fragmented knowledge repositories
-* Poor search relevance
-* Information overload
-* Repeated internal support requests
-* Reduced employee productivity
-
-Organizations require an intelligent system capable of understanding user intent, retrieving relevant information, and generating trustworthy answers grounded in enterprise knowledge.
+🌐 **Live Demo:** https://enterprise-agentic-rag.vercel.app
 
 ---
 
-# Solution
+# 📖 Overview
 
-The Enterprise Agentic RAG Platform utilizes an agent-driven architecture that intelligently orchestrates retrieval and response generation workflows.
+Enterprise knowledge is often distributed across PDFs, documentation portals, internal wikis, policy documents, and business applications. Conventional keyword search struggles to understand user intent, leading to poor search relevance, duplicated work, and slower decision-making.
 
-Instead of relying on a single retrieval pipeline, the system employs specialized AI agents capable of:
+The **Enterprise Agentic RAG Platform** addresses these challenges by combining **Agentic AI**, **Retrieval-Augmented Generation (RAG)**, **vector search**, and **Large Language Models (LLMs)** to deliver accurate, context-grounded responses over enterprise knowledge bases.
 
-* Understanding user intent
-* Selecting appropriate retrieval strategies
-* Querying vector databases
-* Ranking retrieved context
-* Generating grounded responses
-* Streaming results in real time
-
-This architecture improves retrieval accuracy while maintaining scalability for large document collections.
+Built using **FastAPI**, **LangGraph**, **LangChain**, **Pinecone**, **OpenAI**, **Docker**, and **AWS**, the platform demonstrates modern AI system design through modular orchestration, scalable retrieval pipelines, and low-latency response generation.
 
 ---
 
-# Key Capabilities
+# 🎯 Business Objectives
+
+The platform is designed to:
+
+* Improve enterprise knowledge discovery
+* Reduce information retrieval time
+* Generate grounded, context-aware responses
+* Support large document repositories
+* Scale across concurrent enterprise users
+* Minimize hallucinations using retrieval-based generation
+
+---
+
+# 🏗 System Architecture
+
+```text
+                 User Query
+                      │
+                      ▼
+            FastAPI API Gateway
+                      │
+                      ▼
+          LangGraph Agent Router
+                      │
+          ┌───────────┴───────────┐
+          ▼                       ▼
+   Intent Analysis         Retrieval Planner
+          │                       │
+          └───────────┬───────────┘
+                      ▼
+          Hybrid Retrieval Engine
+      (Semantic Search + Metadata)
+                      │
+                      ▼
+          Pinecone Vector Database
+                      │
+                      ▼
+            Context Ranking Layer
+                      │
+                      ▼
+         OpenAI Response Generation
+                      │
+                      ▼
+         Streaming Response Delivery
+```
+
+---
+
+# 🤖 Agentic Workflow
+
+Rather than relying on a single retrieval pipeline, the platform orchestrates specialized AI components that collaborate to produce grounded responses.
+
+### Query Lifecycle
+
+1. User submits a natural language query.
+2. Intent is analyzed using LangGraph orchestration.
+3. An appropriate retrieval strategy is selected.
+4. Relevant document chunks are retrieved from Pinecone.
+5. Retrieved context is ranked and injected into the prompt.
+6. The LLM synthesizes a grounded response.
+7. Results are streamed back to the client in real time.
+
+---
+
+# 🔍 Core Features
 
 ## Agentic Query Routing
 
-LangGraph-powered orchestration dynamically routes requests through specialized retrieval workflows based on query intent.
+* Intent-aware workflow orchestration
+* Dynamic retrieval strategy selection
+* Stateful execution using LangGraph
 
-### Example
+## Retrieval-Augmented Generation
 
-User Query:
+* Semantic document retrieval
+* Context grounding
+* Document chunking
+* Vector similarity search
+* Prompt augmentation
 
-"Summarize our organization's cloud migration strategy."
+## Hybrid Search Pipeline
 
-Agent Workflow:
+* Semantic vector retrieval
+* Metadata filtering
+* Context ranking
+* Relevance optimization
 
-Intent Detection
+## Real-Time Streaming
 
-↓
-
-Retrieval Strategy Selection
-
-↓
-
-Knowledge Retrieval
-
-↓
-
-Response Synthesis
-
-↓
-
-Final Grounded Answer
-
----
-
-## Retrieval-Augmented Generation (RAG)
-
-The platform minimizes hallucinations by grounding responses in retrieved enterprise knowledge.
-
-Capabilities include:
-
-* Semantic Search
-* Context Retrieval
-* Document Chunking
-* Vector Similarity Search
-* Context Injection
-* Source Grounding
-
----
-
-## Hybrid Retrieval Engine
-
-Combines multiple retrieval approaches to maximize answer relevance.
-
-Features:
-
-* Semantic Retrieval
-* Vector Search
-* Metadata Filtering
-* Context Ranking
-
----
-
-## Real-Time Streaming Responses
-
-FastAPI WebSockets enable token-by-token streaming for a responsive user experience.
-
-Benefits:
-
-* Reduced perceived latency
-* Improved user engagement
-* Real-time answer generation
-
----
+* FastAPI WebSockets
+* Token streaming
+* Low-latency inference
+* Responsive conversational experience
 
 ## Enterprise Scalability
 
-Designed for deployment across large-scale enterprise environments.
-
-Supports:
-
-* Large document collections
-* Multi-user workloads
+* Cloud-ready architecture
+* Modular services
 * Containerized deployment
-* Cloud-native infrastructure
+* Support for large document collections
 
 ---
 
-# System Architecture
+# ⚙️ Technology Stack
 
-User Query
-
-↓
-
-FastAPI API Layer
-
-↓
-
-LangGraph Agent Router
-
-↓
-
-Intent Analysis
-
-↓
-
-Hybrid Retrieval Engine
-
-↓
-
-Pinecone Vector Database
-
-↓
-
-Context Ranking
-
-↓
-
-OpenAI Response Generation
-
-↓
-
-Streaming Response Delivery
+| Layer                | Technology        |
+| -------------------- | ----------------- |
+| Programming Language | Python            |
+| Backend Framework    | FastAPI           |
+| Agent Orchestration  | LangGraph         |
+| LLM Framework        | LangChain         |
+| LLM Provider         | OpenAI            |
+| Vector Database      | Pinecone          |
+| Embeddings           | OpenAI Embeddings |
+| Communication        | WebSockets        |
+| Containerization     | Docker            |
+| Cloud Platform       | AWS               |
 
 ---
 
-# Technical Architecture
+# ✨ Engineering Highlights
 
-## Backend Services
-
-* FastAPI
-* Async Python
-* WebSockets
-* REST APIs
-
-## Agent Orchestration
-
-* LangGraph
-* LangChain
-
-## Retrieval Layer
-
-* Pinecone
-* Embedding Search
-* Semantic Retrieval
-
-## AI Layer
-
-* OpenAI GPT Models
-* Prompt Engineering
-* Context Grounding
-
-## Infrastructure
-
-* Docker
-* AWS
+* Agentic AI Architecture
+* Retrieval-Augmented Generation (RAG)
+* LangGraph State Machines
+* Semantic Vector Search
+* Hybrid Retrieval Pipelines
+* Context-Aware Prompting
+* Streaming LLM Responses
+* Async FastAPI Backend
+* Production-Oriented API Design
 * Cloud-Native Deployment
 
 ---
 
-# Technology Stack
+# 💼 Business Applications
 
-| Category        | Technology |
-| --------------- | ---------- |
-| Language        | Python     |
-| API Layer       | FastAPI    |
-| Agent Framework | LangGraph  |
-| LLM Framework   | LangChain  |
-| Vector Database | Pinecone   |
-| LLM Provider    | OpenAI     |
-| Deployment      | Docker     |
-| Cloud Platform  | AWS        |
-| Communication   | WebSockets |
+Potential enterprise use cases include:
+
+* Internal Knowledge Assistants
+* Policy & Compliance Search
+* Employee Support Portals
+* Engineering Documentation Search
+* IT Help Desk Automation
+* Customer Support Knowledge Bases
+* Enterprise Search Platforms
 
 ---
 
-# Engineering Highlights
+# 📈 Future Roadmap
 
-* Agentic AI Architecture
-* Retrieval-Augmented Generation
-* Semantic Search
-* Vector Databases
-* Real-Time Streaming
-* Async Processing
-* Cloud-Native Design
-* Enterprise Scalability
-* Production API Design
-* Modular Microservice Architecture
-
----
-
-# Business Impact
-
-The platform demonstrates how Agentic AI can improve enterprise knowledge management by:
-
-* Reducing information discovery time
-* Improving answer relevance
-* Increasing operational efficiency
-* Supporting enterprise-scale document repositories
-* Enhancing employee productivity
-
----
-
-# Future Enhancements
-
-Planned improvements include:
+Planned enhancements include:
 
 * Multi-Agent Collaboration
-* Hybrid Search with Re-Ranking
+* Hybrid Search with Cross-Encoder Re-Ranking
 * Knowledge Graph Integration
 * LangSmith Observability
-* RAG Evaluation using RAGAS
-* MCP Integration
+* RAG Evaluation with RAGAS
 * Role-Based Access Control (RBAC)
 * Multi-Tenant Architecture
 * Citation-Based Responses
 * Human-in-the-Loop Feedback
+* Model Context Protocol (MCP) Integration
 
 ---
 
-# Project Highlights for Recruiters
+# 🎓 Skills Demonstrated
 
-This project demonstrates expertise across:
+This project showcases practical experience with:
 
-* Generative AI
 * Agentic AI Systems
-* Retrieval-Augmented Generation
-* Large Language Models
-* Enterprise Architecture
-* Cloud-Native Development
-* FastAPI Engineering
+* Retrieval-Augmented Generation (RAG)
+* Large Language Models (LLMs)
+* LangGraph
+* LangChain
+* Prompt Engineering
 * Vector Databases
-* Production AI Systems
-* Scalable Software Design
+* FastAPI
+* Async Python
+* Cloud-Native AI Architecture
+* Production AI Engineering
 
 ---
 
-# Author
+# 👩‍💻 Author
 
-Arpita Jaiswal
+## Arpita Jaiswal
 
-AI Engineer | Generative AI | Agentic AI Systems | Enterprise AI Solutions
+**AI Engineer | Generative AI | Agentic AI Systems | Enterprise AI Architecture**
 
-LinkedIn: https://linkedin.com/in/imarpitajaiswal
+Building production-ready AI platforms using Large Language Models, Agentic AI, Retrieval-Augmented Generation (RAG), and cloud-native engineering practices.
 
-GitHub: https://github.com/imarpitajaiswal
+### Connect
+
+* 🌐 Portfolio: https://arpita-portfolio-puce.vercel.app
+* 💻 GitHub: https://github.com/imarpitajaiswal
+* 💼 LinkedIn: https://linkedin.com/in/imarpitajaiswal
+* ✍️ Medium: https://medium.com/@imarpitajaiswal
+* 𝕏 X: https://x.com/imarpitajaiswal
